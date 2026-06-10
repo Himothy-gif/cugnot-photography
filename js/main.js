@@ -50,14 +50,22 @@ document.addEventListener('DOMContentLoaded', function() {
 
     let currentLine = 0;
 
-    function speakText(text) {
-        const utter = new SpeechSynthesisUtterance(text);
-        utter.rate = 0.8;
-        utter.pitch = 0.1;
-        utter.volume = 2;
-        const maleVoice = voices.find(v => v.name.includes('UK English Male') || v.name.includes('Daniel') || v.name.includes('Microsoft David') || v.name.includes('Google UK English Male') || v.name.includes('en-GB')) || voices.find(v => v.name.includes('Male')) || voices[0];
-        if (maleVoice) utter.voice = maleVoice;
-        synth.speak(utter);
+    let introAudio = null;
+    let audioStarted = false;
+
+    function playIntroAudio() {
+        if (audioStarted) return;
+        audioStarted = true;
+        introAudio = new Audio('audio/intro.mp3');
+        introAudio.volume = 1;
+        introAudio.play().catch(function(e) { console.log('Audio play failed:', e); });
+    }
+
+    function stopIntroAudio() {
+        if (introAudio) {
+            introAudio.pause();
+            introAudio.currentTime = 0;
+        }
     }
 
     function typeLine() {
@@ -87,7 +95,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 charIndex++;
                 setTimeout(typeChar, line.speed);
             } else {
-                if (voiceStarted && line.text.length > 0) speakText(line.text);
+                if (!audioStarted) playIntroAudio();
                 currentLine++;
                 setTimeout(typeLine, line.delay);
             }
@@ -98,7 +106,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function endIntro() {
         if (introSkipped) return;
         introSkipped = true;
-        if (synth) synth.cancel();
+        stopIntroAudio();
         intro.classList.add('hidden');
         mainWebsite.classList.remove('hidden');
         setTimeout(typeHeroSubtitle, 1000);
@@ -121,7 +129,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     window.skipIntro = function() {
         introSkipped = true;
-        if (synth) synth.cancel();
+        stopIntroAudio();
         intro.classList.add('hidden');
         mainWebsite.classList.remove('hidden');
         typeHeroSubtitle();
