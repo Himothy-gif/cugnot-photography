@@ -52,10 +52,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function speakText(text) {
         const utter = new SpeechSynthesisUtterance(text);
-        utter.rate = 0.6;
-        utter.pitch = 0.3;
-        utter.volume = 1;
-        const maleVoice = voices.find(v => v.name.includes('Male') || v.name.includes('David') || v.name.includes('Google US English') || v.name.includes('UK') || v.name.includes('Daniel') || v.name.includes('deep'));
+        utter.rate = 0.8;
+        utter.pitch = 0.1;
+        utter.volume = 2;
+        const maleVoice = voices.find(v => v.name.includes('UK English Male') || v.name.includes('Daniel') || v.name.includes('Microsoft David') || v.name.includes('Google UK English Male') || v.name.includes('en-GB')) || voices.find(v => v.name.includes('Male')) || voices[0];
         if (maleVoice) utter.voice = maleVoice;
         synth.speak(utter);
     }
