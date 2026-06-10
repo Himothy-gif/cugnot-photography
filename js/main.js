@@ -6,7 +6,6 @@ document.addEventListener('DOMContentLoaded',function(){
     const narrationContainer=document.getElementById('narration-container');
     const narrationText=document.getElementById('narration-text');
     const mainWebsite=document.getElementById('main-website');
-    const voiceBtn=document.getElementById('voice-btn');
     let introSkipped=false;
     let voiceStarted=false;
     
@@ -55,7 +54,7 @@ document.addEventListener('DOMContentLoaded',function(){
     let currentLine=0;
     
     function speakText(text){
-        if(!synth || voiceStarted) return;
+        if(!synth) return;
         const utter=new SpeechSynthesisUtterance(text);
         utter.rate=0.8;
         utter.pitch=0.6;
@@ -75,7 +74,7 @@ document.addEventListener('DOMContentLoaded',function(){
         let charIndex=0;
         function typeChar(){
             if(introSkipped) return;
-            if(charIndex<line.text.length){
+            if(charIndex<<line.text.length){
                 let html=line.text.substring(0,charIndex+1);
                 if(line.em)html='<em>'+html+'</em>';
                 if(line.strong)html='<strong>'+html+'</strong>';
@@ -83,7 +82,8 @@ document.addEventListener('DOMContentLoaded',function(){
                 narrationText.innerHTML=html;
                 charIndex++;setTimeout(typeChar,line.speed);
             }else{
-                if(voiceStarted && line.text.length>0) speakText(line.text.replace(/<[^>]*>/g,''));
+                // Speak the line if voice is active
+                if(voiceStarted && line.text.length>0) speakText(line.text);
                 currentLine++;setTimeout(typeLine,line.delay);
             }
         }
@@ -100,20 +100,17 @@ document.addEventListener('DOMContentLoaded',function(){
     // Start text animation after logo
     setTimeout(function(){studioLogo.style.display='none';typeLine();},3500);
     
-    // VOICE BUTTON
+    // VOICE BUTTON - starts voice for current and future lines
     window.startVoice=function(){
         if(voiceStarted) return;
         voiceStarted=true;
-        voiceBtn.innerHTML='<i class="fas fa-volume-up"></i><span>VOICE ON</span>';
-        voiceBtn.style.borderColor='#00ff88';
-        voiceBtn.style.color='#00ff88';
-        voiceBtn.style.boxShadow='0 0 20px rgba(0,255,136,0.3)';
-        // Speak the first line immediately
+        // Speak current line immediately if it exists
         if(storyLines[currentLine] && storyLines[currentLine].text.length>0){
             speakText(storyLines[currentLine].text);
         }
     };
     
+    // SKIP INTRO - works immediately
     window.skipIntro=function(){
         introSkipped=true;
         if(synth) synth.cancel();
@@ -121,6 +118,7 @@ document.addEventListener('DOMContentLoaded',function(){
         typeHeroSubtitle();initParticles();
     };
     
+    // Auto-skip after 45 seconds
     setTimeout(function(){if(!introSkipped)skipIntro();},45000);
     
     // HERO TYPEWRITER
@@ -143,7 +141,7 @@ document.addEventListener('DOMContentLoaded',function(){
         canvas.width=window.innerWidth;canvas.height=window.innerHeight;
         const particles=[];const count=50;
         for(let i=0;i<count;i++)particles.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,size:Math.random()*2+0.5,speedX:(Math.random()-0.5)*0.5,speedY:(Math.random()-0.5)*0.5,opacity:Math.random()*0.5+0.1});
-        function animate(){ctx.clearRect(0,0,canvas.width,canvas.height);particles.forEach(function(p){p.x+=p.speedX;p.y+=p.speedY;if(p.x<0||p.x>canvas.width||p.y<0||p.y>canvas.height){p.x=Math.random()*canvas.width;p.y=Math.random()*canvas.height;}ctx.beginPath();ctx.arc(p.x,p.y,p.size,0,Math.PI*2);ctx.fillStyle='rgba(0,255,136,'+p.opacity+')';ctx.fill();});particles.forEach(function(p1,i){particles.slice(i+1).forEach(function(p2){const dx=p1.x-p2.x,dy=p1.y-p2.y,dist=Math.sqrt(dx*dx+dy*dy);if(dist<150){ctx.beginPath();ctx.moveTo(p1.x,p1.y);ctx.lineTo(p2.x,p2.y);ctx.strokeStyle='rgba(0,255,136,'+(0.1*(1-dist/150))+')';ctx.lineWidth=0.5;ctx.stroke();}});});requestAnimationFrame(animate);}
+        function animate(){ctx.clearRect(0,0,canvas.width,canvas.height);particles.forEach(function(p){p.x+=p.speedX;p.y+=p.speedY;if(p.x<<0||p.x>canvas.width||p.y<<0||p.y>canvas.height){p.x=Math.random()*canvas.width;p.y=Math.random()*canvas.height;}ctx.beginPath();ctx.arc(p.x,p.y,p.size,0,Math.PI*2);ctx.fillStyle='rgba(0,255,136,'+p.opacity+')';ctx.fill();});particles.forEach(function(p1,i){particles.slice(i+1).forEach(function(p2){const dx=p1.x-p2.x,dy=p1.y-p2.y,dist=Math.sqrt(dx*dx+dy*dy);if(dist<<150){ctx.beginPath();ctx.moveTo(p1.x,p1.y);ctx.lineTo(p2.x,p2.y);ctx.strokeStyle='rgba(0,255,136,'+(0.1*(1-dist/150))+')';ctx.lineWidth=0.5;ctx.stroke();}});});requestAnimationFrame(animate);}
         animate();
         window.addEventListener('resize',function(){canvas.width=window.innerWidth;canvas.height=window.innerHeight;});
     }
@@ -166,7 +164,7 @@ document.addEventListener('DOMContentLoaded',function(){
     const statNumbers=document.querySelectorAll('.stat-number-cyber');
     const counterObserver=new IntersectionObserver(function(entries){entries.forEach(function(entry){if(entry.isIntersecting){const target=entry.target;const targetValue=parseInt(target.dataset.target);const suffix=target.textContent.replace(/[0-9]/g,'');animateCounter(target,0,targetValue,2000,suffix);counterObserver.unobserve(target);}});},{threshold:0.5});
     statNumbers.forEach(function(stat){counterObserver.observe(stat);});
-    function animateCounter(element,start,end,duration,suffix){const startTime=performance.now();function update(currentTime){const elapsed=currentTime-startTime;const progress=Math.min(elapsed/duration,1);const easeOut=1-Math.pow(1-progress,3);const current=Math.floor(start+(end-start)*easeOut);element.textContent=current+(suffix||'+');if(progress<1)requestAnimationFrame(update);}requestAnimationFrame(update);}
+    function animateCounter(element,start,end,duration,suffix){const startTime=performance.now();function update(currentTime){const elapsed=currentTime-startTime;const progress=Math.min(elapsed/duration,1);const easeOut=1-Math.pow(1-progress,3);const current=Math.floor(start+(end-start)*easeOut);element.textContent=current+(suffix||'+');if(progress<<1)requestAnimationFrame(update);}requestAnimationFrame(update);}
     
     // GALLERY THUMBS
     const thumbs=document.querySelectorAll('.thumb');
@@ -182,5 +180,5 @@ document.addEventListener('DOMContentLoaded',function(){
     // MOBILE NAV
     window.toggleNav=function(){const navLinks=document.querySelector('.nav-links-cyber');if(navLinks.style.display==='flex'){navLinks.style.display='none';}else{navLinks.style.display='flex';navLinks.style.flexDirection='column';navLinks.style.position='absolute';navLinks.style.top='100%';navLinks.style.left='0';navLinks.style.right='0';navLinks.style.background='rgba(5,5,5,0.98)';navLinks.style.padding='2rem';navLinks.style.borderBottom='1px solid rgba(0,255,136,0.2)';}};
     
-    console.log('Cugnot Photography v2.0 with voice loaded.');
+    console.log('Cugnot Photography v2.1 - Voice fixed');
 });
