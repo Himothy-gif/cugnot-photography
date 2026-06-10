@@ -106,6 +106,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     setTimeout(function() {
         studioLogo.style.display = 'none';
+        voiceStarted = true;
         typeLine();
     }, 3500);
 
