@@ -6,536 +6,358 @@
     <title>CUGNOT | The Art of Shadows & Light</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&family=Orbitron:wght@400;500;600;700;800;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Orbitron:wght@400;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <!-- ============================================
-         CINEMATIC MOVIE INTRO
-         ============================================ -->
-    <div id="movie-intro" class="movie-intro">
-        <!-- Film grain overlay -->
-        <div class="film-grain"></div>
-
-        <!-- Vignette -->
-        <div class="vignette"></div>
-
-        <!-- Scan lines -->
-        <div class="scanlines"></div>
-
-        <!-- Opening: Studio logo animation -->
-        <div class="studio-logo" id="studio-logo">
-            <div class="logo-circle">
-                <svg viewBox="0 0 100 100" class="camera-svg">
-                    <circle cx="50" cy="50" r="45" fill="none" stroke="#00ff88" stroke-width="0.5" class="logo-ring"/>
-                    <rect x="20" y="30" width="60" height="40" rx="8" fill="none" stroke="#00ff88" stroke-width="1"/>
-                    <circle cx="50" cy="50" r="15" fill="none" stroke="#00ff88" stroke-width="1"/>
-                    <circle cx="50" cy="50" r="8" fill="none" stroke="#00ff88" stroke-width="0.5"/>
-                    <rect x="65" y="22" width="15" height="8" rx="2" fill="none" stroke="#00ff88" stroke-width="0.5"/>
-                    <line x1="25" y1="25" x2="35" y2="25" stroke="#00ff88" stroke-width="0.5"/>
-                </svg>
-            </div>
-            <div class="studio-text">
-                <span class="studio-name">CUGNOT</span>
-                <span class="studio-sub">ARTS PRESENTS</span>
-            </div>
+<!-- MOVIE INTRO -->
+<div id="movie-intro" class="movie-intro">
+    <div class="film-grain"></div>
+    <div class="vignette"></div>
+    <div class="scanlines"></div>
+    
+    <div class="studio-logo" id="studio-logo">
+        <div class="logo-circle">
+            <svg viewBox="0 0 100 100" class="camera-svg">
+                <circle cx="50" cy="50" r="45" fill="none" stroke="#00ff88" stroke-width="0.5" class="logo-ring"/>
+                <rect x="20" y="30" width="60" height="40" rx="8" fill="none" stroke="#00ff88" stroke-width="1"/>
+                <circle cx="50" cy="50" r="15" fill="none" stroke="#00ff88" stroke-width="1"/>
+                <circle cx="50" cy="50" r="8" fill="none" stroke="#00ff88" stroke-width="0.5"/>
+                <rect x="65" y="22" width="15" height="8" rx="2" fill="none" stroke="#00ff88" stroke-width="0.5"/>
+                <line x1="25" y1="25" x2="35" y2="25" stroke="#00ff88" stroke-width="0.5"/>
+            </svg>
         </div>
-
-        <!-- Narration text container -->
-        <div class="narration-container" id="narration-container">
-            <div class="narration-text" id="narration-text"></div>
-            <div class="narration-cursor" id="narration-cursor">|</div>
+        <div class="studio-text">
+            <span class="studio-name">CUGNOT</span>
+            <span class="studio-sub">ARTS PRESENTS</span>
         </div>
+    </div>
+    
+    <div class="narration-container" id="narration-container">
+        <div class="narration-text" id="narration-text"></div>
+        <div class="narration-cursor" id="narration-cursor">|</div>
+    </div>
+    
+    <!-- VOICE BUTTON -->
+    <button class="voice-btn" id="voice-btn" onclick="startVoice()">
+        <i class="fas fa-play"></i>
+        <span>PLAY NARRATION</span>
+    </button>
+    
+    <button class="skip-intro" id="skip-intro" onclick="skipIntro()">
+        <span>SKIP INTRO</span>
+        <div class="skip-bar"><div class="skip-progress"></div></div>
+    </button>
+    
+    <div class="audio-hint" id="audio-hint">
+        <i class="fas fa-volume-up"></i>
+        <span>Click PLAY NARRATION for the full cinematic experience</span>
+    </div>
+</div>
 
-        <!-- Skip button -->
-        <button class="skip-intro" id="skip-intro" onclick="skipIntro()">
-            <span>SKIP INTRO</span>
-            <div class="skip-bar"><div class="skip-progress"></div></div>
+<!-- MAIN WEBSITE -->
+<div id="main-website" class="main-website hidden">
+    <canvas id="particles-canvas" class="particles-canvas"></canvas>
+    <div class="cyber-grid"></div>
+    
+    <nav class="nav-cyber" id="navbar">
+        <a href="#" class="nav-logo">
+            <div class="logo-glow">
+                <img src="images/logo.jpeg" alt="Cugnot">
+            </div>
+            <div class="logo-text-cyber">
+                <span class="logo-main">CUGNOT</span>
+                <span class="logo-sub">PHOTOGRAPHY</span>
+            </div>
+        </a>
+        <div class="nav-links-cyber">
+            <a href="#story" data-text="STORY">STORY</a>
+            <a href="#services" data-text="SERVICES">SERVICES</a>
+            <a href="#gallery" data-text="GALLERY">GALLERY</a>
+            <a href="#rates" data-text="RATES">RATES</a>
+            <a href="#contact" data-text="CONTACT">CONTACT</a>
+        </div>
+        <button class="nav-toggle" onclick="toggleNav()">
+            <span></span><span></span><span></span>
         </button>
+    </nav>
 
-        <!-- Audio hint -->
-        <div class="audio-hint" id="audio-hint">
-            <i class="fas fa-volume-up"></i>
-            <span>Turn up your volume for the full experience</span>
+    <section class="hero-cyber" id="home">
+        <div class="hero-video-bg">
+            <img src="images/hero-video.jpeg" alt="Hero" style="width:100%;height:100%;object-fit:cover;filter:contrast(1.2) brightness(0.4) saturate(0.8);">
+            <div class="video-overlay-cyber"></div>
         </div>
-    </div>
-
-    <!-- ============================================
-         MAIN WEBSITE (Hidden until intro ends)
-         ============================================ -->
-    <div id="main-website" class="main-website hidden">
-
-        <!-- Ambient background particles -->
-        <canvas id="particles-canvas" class="particles-canvas"></canvas>
-
-        <!-- Cyberpunk grid overlay -->
-        <div class="cyber-grid"></div>
-
-        <!-- Navigation -->
-        <nav class="nav-cyber" id="navbar">
-            <a href="#" class="nav-logo">
-                <div class="logo-glow">
-                    <img src="images/logo.jpeg" alt="Cugnot">
-                </div>
-                <div class="logo-text-cyber">
-                    <span class="logo-main">CUGNOT</span>
-                    <span class="logo-sub">PHOTOGRAPHY</span>
-                </div>
-            </a>
-            <div class="nav-links-cyber">
-                <a href="#story" data-text="STORY">STORY</a>
-                <a href="#services" data-text="SERVICES">SERVICES</a>
-                <a href="#gallery" data-text="GALLERY">GALLERY</a>
-                <a href="#rates" data-text="RATES">RATES</a>
-                <a href="#contact" data-text="CONTACT">CONTACT</a>
+        <div class="hero-content-cyber">
+            <div class="glitch-wrapper">
+                <h1 class="glitch" data-text="CAPTURING SOULS">CAPTURING SOULS</h1>
             </div>
-            <button class="nav-toggle" onclick="toggleNav()">
-                <span></span><span></span><span></span>
-            </button>
-        </nav>
-
-        <!-- Hero Section -->
-        <section class="hero-cyber" id="home">
-            <div class="hero-video-bg">
-                <video autoplay muted loop playsinline>
-                    <!-- Video fallback - using poster image -->
-                </video>
-                <div class="video-overlay-cyber"></div>
+            <div class="hero-subtitle-cyber">
+                <span class="typewriter-text" id="hero-typewriter"></span>
+                <span class="typewriter-cursor">|</span>
             </div>
+            <div class="hero-cta-group">
+                <a href="#story" class="cta-primary"><span class="cta-text">ENTER THE STORY</span></a>
+                <a href="#gallery" class="cta-secondary"><span>VIEW THE EVIDENCE</span></a>
+            </div>
+        </div>
+        <div class="scroll-hint">
+            <div class="scroll-line"></div>
+            <span>SCROLL</span>
+        </div>
+    </section>
 
-            <div class="hero-content-cyber">
-                <div class="glitch-wrapper">
-                    <h1 class="glitch" data-text="CAPTURING SOULS">CAPTURING SOULS</h1>
+    <section class="story-section" id="story">
+        <div class="story-bg">
+            <div class="fog-layer fog-1"></div>
+            <div class="fog-layer fog-2"></div>
+        </div>
+        <div class="story-content">
+            <div class="story-header reveal">
+                <span class="section-tag">THE LEGEND</span>
+                <h2 class="story-title">
+                    <span class="title-line">In the Shadows</span>
+                    <span class="title-line">of Nairobi...</span>
+                </h2>
+            </div>
+            <div class="story-body reveal">
+                <p class="story-paragraph">There exists a craftsman who doesn't merely take pictures — <em>he steals moments from time itself.</em> In the bustling streets where dreams meet reality, where the old world collides with the new, one name echoes through the corridors of memory...</p>
+                <p class="story-paragraph highlight"><strong>Cugnot Arts.</strong></p>
+                <p class="story-paragraph">Born from the concrete poetry of Nairobi's streets, forged in the fires of a thousand sunsets, Cugnot doesn't just capture images — <em>he captures the soul behind every smile, the story behind every glance, the eternity within every fleeting moment.</em></p>
+                <p class="story-paragraph">From the sacred vows of wedding altars to the proud strides of graduation stages, from the tender glow of baby bumps to the wild celebration of birthdays — <strong>every frame is a love letter to life itself.</strong></p>
+            </div>
+            <div class="story-stats reveal">
+                <div class="stat-cyber">
+                    <div class="stat-number-cyber" data-target="500">0</div>
+                    <div class="stat-label-cyber">SOULS CAPTURED</div>
                 </div>
-                <div class="hero-subtitle-cyber">
-                    <span class="typewriter-text" id="hero-typewriter"></span>
-                    <span class="typewriter-cursor">|</span>
+                <div class="stat-cyber">
+                    <div class="stat-number-cyber" data-target="50">0</div>
+                    <div class="stat-label-cyber">THOUSAND MOMENTS</div>
                 </div>
-                <div class="hero-cta-group">
-                    <a href="#story" class="cta-primary">
-                        <span class="cta-text">ENTER THE STORY</span>
-                        <span class="cta-glitch"></span>
-                    </a>
-                    <a href="#gallery" class="cta-secondary">
-                        <span>VIEW THE EVIDENCE</span>
-                    </a>
+                <div class="stat-cyber">
+                    <div class="stat-number-cyber" data-target="100">0</div>
+                    <div class="stat-label-cyber">PERCENT DEDICATION</div>
                 </div>
             </div>
+        </div>
+    </section>
 
-            <div class="scroll-hint">
-                <div class="scroll-line"></div>
-                <span>SCROLL</span>
+    <section class="services-cyber" id="services">
+        <div class="section-header-cyber reveal">
+            <span class="cyber-tag">[ SERVICES ]</span>
+            <h2>The Arsenal</h2>
+            <p class="section-desc">Every tool in the craft. Every art in the arsenal.</p>
+        </div>
+        <div class="services-grid-cyber">
+            <div class="service-card-cyber reveal" data-delay="0">
+                <div class="service-icon-cyber"><i class="fas fa-sun"></i><div class="icon-glow"></div></div>
+                <h3>Outdoor Photography</h3>
+                <p>Where natural light becomes your spotlight. Nairobi's streets, parks, and skylines as your stage.</p>
+                <div class="service-line"></div>
             </div>
-        </section>
-
-        <!-- Story Section -->
-        <section class="story-section" id="story">
-            <div class="story-bg">
-                <div class="fog-layer fog-1"></div>
-                <div class="fog-layer fog-2"></div>
+            <div class="service-card-cyber reveal" data-delay="100">
+                <div class="service-icon-cyber"><i class="fas fa-door-open"></i><div class="icon-glow"></div></div>
+                <h3>Indoor Photography</h3>
+                <p>Controlled chaos. Studio precision. <strong>Ksh 300 per photo</strong> — pure art at your fingertips.</p>
+                <div class="service-line"></div>
             </div>
+            <div class="service-card-cyber reveal" data-delay="200">
+                <div class="service-icon-cyber"><i class="fas fa-glass-cheers"></i><div class="icon-glow"></div></div>
+                <h3>Birthday & Events</h3>
+                <p>Every toast, every laugh, every dance move — immortalized in frames that never forget.</p>
+                <div class="service-line"></div>
+            </div>
+            <div class="service-card-cyber reveal" data-delay="300">
+                <div class="service-icon-cyber"><i class="fas fa-ring"></i><div class="icon-glow"></div></div>
+                <h3>Wedding & Ruracio</h3>
+                <p>From traditional ruracio ceremonies to church vows — your love story, told like cinema.</p>
+                <div class="service-line"></div>
+            </div>
+            <div class="service-card-cyber reveal" data-delay="400">
+                <div class="service-icon-cyber"><i class="fas fa-heart"></i><div class="icon-glow"></div></div>
+                <h3>Engagement Shoots</h3>
+                <p>The promise before the promise. Romantic, raw, and real — just like your love.</p>
+                <div class="service-line"></div>
+            </div>
+            <div class="service-card-cyber reveal" data-delay="500">
+                <div class="service-icon-cyber"><i class="fas fa-baby-carriage"></i><div class="icon-glow"></div></div>
+                <h3>Baby Bump Sessions</h3>
+                <p>The miracle of life, captured with tenderness. Motherhood in its most beautiful form.</p>
+                <div class="service-line"></div>
+            </div>
+            <div class="service-card-cyber reveal" data-delay="600">
+                <div class="service-icon-cyber"><i class="fas fa-graduation-cap"></i><div class="icon-glow"></div></div>
+                <h3>Graduation</h3>
+                <p>The cap, the gown, the triumph. Your academic victory, frozen in time forever.</p>
+                <div class="service-line"></div>
+            </div>
+            <div class="service-card-cyber reveal" data-delay="700">
+                <div class="service-icon-cyber"><i class="fas fa-film"></i><div class="icon-glow"></div></div>
+                <h3>Videography</h3>
+                <p>Motion pictures that breathe. From highlight reels to full documentaries — we direct your story.</p>
+                <div class="service-line"></div>
+            </div>
+        </div>
+    </section>
 
-            <div class="story-content">
-                <div class="story-header reveal">
-                    <span class="section-tag">THE LEGEND</span>
-                    <h2 class="story-title">
-                        <span class="title-line">In the Shadows</span>
-                        <span class="title-line">of Nairobi...</span>
-                    </h2>
-                </div>
-
-                <div class="story-body reveal">
-                    <p class="story-paragraph">
-                        There exists a craftsman who doesn't merely take pictures — <em>he steals moments from time itself.</em> 
-                        In the bustling streets where dreams meet reality, where the old world collides with the new, 
-                        one name echoes through the corridors of memory...
-                    </p>
-                    <p class="story-paragraph highlight">
-                        <strong>Cugnot Arts.</strong>
-                    </p>
-                    <p class="story-paragraph">
-                        Born from the concrete poetry of Nairobi's streets, forged in the fires of a thousand sunsets, 
-                        Cugnot doesn't just capture images — <em>he captures the soul behind every smile, 
-                        the story behind every glance, the eternity within every fleeting moment.</em>
-                    </p>
-                    <p class="story-paragraph">
-                        From the sacred vows of wedding altars to the proud strides of graduation stages, 
-                        from the tender glow of baby bumps to the wild celebration of birthdays — 
-                        <strong>every frame is a love letter to life itself.</strong>
-                    </p>
-                </div>
-
-                <div class="story-stats reveal">
-                    <div class="stat-cyber">
-                        <div class="stat-number-cyber" data-target="500">0</div>
-                        <div class="stat-label-cyber">SOULS CAPTURED</div>
+    <section class="gallery-cyber" id="gallery">
+        <div class="section-header-cyber reveal">
+            <span class="cyber-tag">[ EVIDENCE ]</span>
+            <h2>The Collection</h2>
+            <p class="section-desc">Proof of the craft. Frames that speak louder than words.</p>
+        </div>
+        <div class="gallery-showcase">
+            <div class="gallery-main reveal">
+                <div class="gallery-frame">
+                    <img src="images/portrait1.jpeg" alt="Portrait" id="gallery-main-img">
+                    <div class="frame-corners">
+                        <span class="corner tl"></span>
+                        <span class="corner tr"></span>
+                        <span class="corner bl"></span>
+                        <span class="corner br"></span>
                     </div>
-                    <div class="stat-cyber">
-                        <div class="stat-number-cyber" data-target="50">0</div>
-                        <div class="stat-label-cyber">THOUSAND MOMENTS</div>
-                    </div>
-                    <div class="stat-cyber">
-                        <div class="stat-number-cyber" data-target="100">0</div>
-                        <div class="stat-label-cyber">PERCENT DEDICATION</div>
-                    </div>
+                    <div class="frame-scan"></div>
+                </div>
+                <div class="gallery-caption" id="gallery-caption">
+                    <span class="caption-tag">FILE_001</span>
+                    <h3>Street Sovereign</h3>
+                    <p>Outdoor Portrait Session — Nairobi, Kenya</p>
                 </div>
             </div>
-        </section>
-
-        <!-- Services Section -->
-        <section class="services-cyber" id="services">
-            <div class="section-header-cyber reveal">
-                <span class="cyber-tag">[ SERVICES ]</span>
-                <h2>The Arsenal</h2>
-                <p class="section-desc">Every tool in the craft. Every art in the arsenal.</p>
-            </div>
-
-            <div class="services-grid-cyber">
-                <div class="service-card-cyber reveal" data-delay="0">
-                    <div class="service-icon-cyber">
-                        <i class="fas fa-sun"></i>
-                        <div class="icon-glow"></div>
-                    </div>
-                    <h3>Outdoor Photography</h3>
-                    <p>Where natural light becomes your spotlight. Nairobi's streets, parks, and skylines as your stage.</p>
-                    <div class="service-line"></div>
+            <div class="gallery-thumbs">
+                <div class="thumb active" data-index="0" data-title="Street Sovereign" data-desc="Outdoor Portrait Session — Nairobi, Kenya" data-file="FILE_001">
+                    <img src="images/portrait1.jpeg" alt=""><div class="thumb-overlay"></div>
                 </div>
+                <div class="thumb" data-index="1" data-title="The Gentleman" data-desc="Fashion Editorial — Urban Kenya" data-file="FILE_002">
+                    <img src="images/portrait2.jpeg" alt=""><div class="thumb-overlay"></div>
+                </div>
+                <div class="thumb" data-index="2" data-title="Midnight Walker" data-desc="Street Style Photography" data-file="FILE_003">
+                    <img src="images/portrait3.jpeg" alt=""><div class="thumb-overlay"></div>
+                </div>
+                <div class="thumb" data-index="3" data-title="The Commander" data-desc="Editorial Look — Creative Direction" data-file="FILE_004">
+                    <img src="images/portrait4.jpeg" alt=""><div class="thumb-overlay"></div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-                <div class="service-card-cyber reveal" data-delay="100">
-                    <div class="service-icon-cyber">
-                        <i class="fas fa-door-open"></i>
-                        <div class="icon-glow"></div>
-                    </div>
+    <section class="rates-cyber" id="rates">
+        <div class="rates-bg"><div class="rates-grid-bg"></div></div>
+        <div class="section-header-cyber reveal">
+            <span class="cyber-tag">[ RATES ]</span>
+            <h2>The Price of Art</h2>
+            <p class="section-desc">Quality has a cost. Excellence has a price. Here is ours.</p>
+        </div>
+        <div class="rates-container">
+            <div class="rates-special reveal">
+                <div class="special-badge"><span class="badge-pulse"></span><span>SPECIAL OFFER</span></div>
+                <h3>Photo Mount Rates</h3>
+                <p class="special-sub">Premium quality mounts. Countrywide delivery.</p>
+            </div>
+            <div class="rates-grid-cyber">
+                <div class="rate-card reveal" data-delay="0">
+                    <div class="rate-size">A4</div>
+                    <div class="rate-price"><span class="currency">Ksh</span><span class="amount">1,000</span></div>
+                    <div class="rate-bar"><div class="rate-fill" style="width:20%"></div></div>
+                </div>
+                <div class="rate-card reveal" data-delay="100">
+                    <div class="rate-size">A3</div>
+                    <div class="rate-price"><span class="currency">Ksh</span><span class="amount">1,500</span></div>
+                    <div class="rate-bar"><div class="rate-fill" style="width:35%"></div></div>
+                </div>
+                <div class="rate-card featured-rate reveal" data-delay="200">
+                    <div class="rate-glow"></div>
+                    <div class="rate-size">A2</div>
+                    <div class="rate-price"><span class="currency">Ksh</span><span class="amount">3,000</span></div>
+                    <div class="rate-bar"><div class="rate-fill" style="width:60%"></div></div>
+                    <div class="rate-tag">MOST POPULAR</div>
+                </div>
+                <div class="rate-card reveal" data-delay="300">
+                    <div class="rate-size">A1</div>
+                    <div class="rate-price"><span class="currency">Ksh</span><span class="amount">5,000</span></div>
+                    <div class="rate-bar"><div class="rate-fill" style="width:80%"></div></div>
+                </div>
+                <div class="rate-card reveal" data-delay="400">
+                    <div class="rate-size">A0</div>
+                    <div class="rate-price"><span class="currency">Ksh</span><span class="amount">8,000</span></div>
+                    <div class="rate-bar"><div class="rate-fill" style="width:100%"></div></div>
+                </div>
+            </div>
+            <div class="indoor-rate reveal">
+                <div class="indoor-icon"><i class="fas fa-camera-retro"></i></div>
+                <div class="indoor-content">
                     <h3>Indoor Photography</h3>
-                    <p>Controlled chaos. Studio precision. <strong>Ksh 300 per photo</strong> — pure art at your fingertips.</p>
-                    <div class="service-line"></div>
-                </div>
-
-                <div class="service-card-cyber reveal" data-delay="200">
-                    <div class="service-icon-cyber">
-                        <i class="fas fa-glass-cheers"></i>
-                        <div class="icon-glow"></div>
-                    </div>
-                    <h3>Birthday & Events</h3>
-                    <p>Every toast, every laugh, every dance move — immortalized in frames that never forget.</p>
-                    <div class="service-line"></div>
-                </div>
-
-                <div class="service-card-cyber reveal" data-delay="300">
-                    <div class="service-icon-cyber">
-                        <i class="fas fa-ring"></i>
-                        <div class="icon-glow"></div>
-                    </div>
-                    <h3>Wedding & Ruracio</h3>
-                    <p>From traditional ruracio ceremonies to church vows — your love story, told like cinema.</p>
-                    <div class="service-line"></div>
-                </div>
-
-                <div class="service-card-cyber reveal" data-delay="400">
-                    <div class="service-icon-cyber">
-                        <i class="fas fa-heart"></i>
-                        <div class="icon-glow"></div>
-                    </div>
-                    <h3>Engagement Shoots</h3>
-                    <p>The promise before the promise. Romantic, raw, and real — just like your love.</p>
-                    <div class="service-line"></div>
-                </div>
-
-                <div class="service-card-cyber reveal" data-delay="500">
-                    <div class="service-icon-cyber">
-                        <i class="fas fa-baby-carriage"></i>
-                        <div class="icon-glow"></div>
-                    </div>
-                    <h3>Baby Bump Sessions</h3>
-                    <p>The miracle of life, captured with tenderness. Motherhood in its most beautiful form.</p>
-                    <div class="service-line"></div>
-                </div>
-
-                <div class="service-card-cyber reveal" data-delay="600">
-                    <div class="service-icon-cyber">
-                        <i class="fas fa-graduation-cap"></i>
-                        <div class="icon-glow"></div>
-                    </div>
-                    <h3>Graduation</h3>
-                    <p>The cap, the gown, the triumph. Your academic victory, frozen in time forever.</p>
-                    <div class="service-line"></div>
-                </div>
-
-                <div class="service-card-cyber reveal" data-delay="700">
-                    <div class="service-icon-cyber">
-                        <i class="fas fa-film"></i>
-                        <div class="icon-glow"></div>
-                    </div>
-                    <h3>Videography</h3>
-                    <p>Motion pictures that breathe. From highlight reels to full documentaries — we direct your story.</p>
-                    <div class="service-line"></div>
+                    <div class="indoor-price"><span class="indoor-amount">Ksh 300</span><span class="indoor-unit">per photo</span></div>
+                    <p>Studio-quality indoor shots with professional lighting setup</p>
                 </div>
             </div>
-        </section>
-
-        <!-- Gallery Section -->
-        <section class="gallery-cyber" id="gallery">
-            <div class="section-header-cyber reveal">
-                <span class="cyber-tag">[ EVIDENCE ]</span>
-                <h2>The Collection</h2>
-                <p class="section-desc">Proof of the craft. Frames that speak louder than words.</p>
-            </div>
-
-            <div class="gallery-showcase">
-                <div class="gallery-main reveal">
-                    <div class="gallery-frame">
-                        <img src="images/portrait1.jpeg" alt="Portrait" id="gallery-main-img">
-                        <div class="frame-corners">
-                            <span class="corner tl"></span>
-                            <span class="corner tr"></span>
-                            <span class="corner bl"></span>
-                            <span class="corner br"></span>
-                        </div>
-                        <div class="frame-scan"></div>
-                    </div>
-                    <div class="gallery-caption" id="gallery-caption">
-                        <span class="caption-tag">FILE_001</span>
-                        <h3>Street Sovereign</h3>
-                        <p>Outdoor Portrait Session — Nairobi, Kenya</p>
-                    </div>
+            <div class="payment-cyber reveal">
+                <div class="payment-header"><i class="fas fa-mobile-alt"></i><h3>M-Pesa Payment</h3></div>
+                <div class="payment-details">
+                    <div class="pay-row"><span class="pay-label">Paybill Number</span><span class="pay-value" data-copy="222111">222111 <i class="fas fa-copy"></i></span></div>
+                    <div class="pay-row"><span class="pay-label">Account Number</span><span class="pay-value" data-copy="2451128">2451128 <i class="fas fa-copy"></i></span></div>
                 </div>
+                <div class="delivery-note"><i class="fas fa-shipping-fast"></i><span>Delivery Countrywide</span></div>
+            </div>
+        </div>
+    </section>
 
-                <div class="gallery-thumbs">
-                    <div class="thumb active" data-index="0" data-title="Street Sovereign" data-desc="Outdoor Portrait Session — Nairobi, Kenya" data-file="FILE_001">
-                        <img src="images/portrait1.jpeg" alt="">
-                        <div class="thumb-overlay"></div>
+    <section class="contact-cyber" id="contact">
+        <div class="contact-bg"><div class="contact-fog"></div></div>
+        <div class="section-header-cyber reveal">
+            <span class="cyber-tag">[ CONTACT ]</span>
+            <h2>Make the Connection</h2>
+            <p class="section-desc">The story begins with a single message.</p>
+        </div>
+        <div class="contact-grid-cyber">
+            <div class="contact-info-cyber reveal">
+                <div class="contact-card">
+                    <div class="card-glow"></div>
+                    <div class="contact-item-cyber">
+                        <div class="contact-icon-cyber"><i class="fas fa-map-marker-alt"></i></div>
+                        <div class="contact-text"><span class="contact-label">LOCATION</span><span class="contact-value">Nairobi, Kenya</span></div>
                     </div>
-                    <div class="thumb" data-index="1" data-title="The Gentleman" data-desc="Fashion Editorial — Urban Kenya" data-file="FILE_002">
-                        <img src="images/portrait2.jpeg" alt="">
-                        <div class="thumb-overlay"></div>
+                    <div class="contact-item-cyber">
+                        <div class="contact-icon-cyber"><i class="fas fa-envelope"></i></div>
+                        <div class="contact-text"><span class="contact-label">EMAIL</span><span class="contact-value">cugnot.photography@gmail.com</span></div>
                     </div>
-                    <div class="thumb" data-index="2" data-title="Midnight Walker" data-desc="Street Style Photography" data-file="FILE_003">
-                        <img src="images/portrait3.jpeg" alt="">
-                        <div class="thumb-overlay"></div>
+                    <div class="contact-item-cyber">
+                        <div class="contact-icon-cyber"><i class="fab fa-instagram"></i></div>
+                        <div class="contact-text"><span class="contact-label">INSTAGRAM</span><span class="contact-value">@cugnot_photography</span></div>
                     </div>
-                    <div class="thumb" data-index="3" data-title="The Commander" data-desc="Editorial Look — Creative Direction" data-file="FILE_004">
-                        <img src="images/portrait4.jpeg" alt="">
-                        <div class="thumb-overlay"></div>
+                    <div class="contact-item-cyber">
+                        <div class="contact-icon-cyber"><i class="fas fa-clock"></i></div>
+                        <div class="contact-text"><span class="contact-label">HOURS</span><span class="contact-value">Mon - Sun: 8AM - 8PM</span></div>
                     </div>
                 </div>
             </div>
-        </section>
-
-        <!-- Rates Section -->
-        <section class="rates-cyber" id="rates">
-            <div class="rates-bg">
-                <div class="rates-grid-bg"></div>
-            </div>
-
-            <div class="section-header-cyber reveal">
-                <span class="cyber-tag">[ RATES ]</span>
-                <h2>The Price of Art</h2>
-                <p class="section-desc">Quality has a cost. Excellence has a price. Here is ours.</p>
-            </div>
-
-            <div class="rates-container">
-                <div class="rates-special reveal">
-                    <div class="special-badge">
-                        <span class="badge-pulse"></span>
-                        <span>SPECIAL OFFER</span>
-                    </div>
-                    <h3>Photo Mount Rates</h3>
-                    <p class="special-sub">Premium quality mounts. Countrywide delivery.</p>
-                </div>
-
-                <div class="rates-grid-cyber">
-                    <div class="rate-card reveal" data-delay="0">
-                        <div class="rate-size">A4</div>
-                        <div class="rate-price">
-                            <span class="currency">Ksh</span>
-                            <span class="amount">1,000</span>
-                        </div>
-                        <div class="rate-bar"><div class="rate-fill" style="width: 20%"></div></div>
-                    </div>
-
-                    <div class="rate-card reveal" data-delay="100">
-                        <div class="rate-size">A3</div>
-                        <div class="rate-price">
-                            <span class="currency">Ksh</span>
-                            <span class="amount">1,500</span>
-                        </div>
-                        <div class="rate-bar"><div class="rate-fill" style="width: 35%"></div></div>
-                    </div>
-
-                    <div class="rate-card featured-rate reveal" data-delay="200">
-                        <div class="rate-glow"></div>
-                        <div class="rate-size">A2</div>
-                        <div class="rate-price">
-                            <span class="currency">Ksh</span>
-                            <span class="amount">3,000</span>
-                        </div>
-                        <div class="rate-bar"><div class="rate-fill" style="width: 60%"></div></div>
-                        <div class="rate-tag">MOST POPULAR</div>
-                    </div>
-
-                    <div class="rate-card reveal" data-delay="300">
-                        <div class="rate-size">A1</div>
-                        <div class="rate-price">
-                            <span class="currency">Ksh</span>
-                            <span class="amount">5,000</span>
-                        </div>
-                        <div class="rate-bar"><div class="rate-fill" style="width: 80%"></div></div>
-                    </div>
-
-                    <div class="rate-card reveal" data-delay="400">
-                        <div class="rate-size">A0</div>
-                        <div class="rate-price">
-                            <span class="currency">Ksh</span>
-                            <span class="amount">8,000</span>
-                        </div>
-                        <div class="rate-bar"><div class="rate-fill" style="width: 100%"></div></div>
-                    </div>
-                </div>
-
-                <div class="indoor-rate reveal">
-                    <div class="indoor-icon">
-                        <i class="fas fa-camera-retro"></i>
-                    </div>
-                    <div class="indoor-content">
-                        <h3>Indoor Photography</h3>
-                        <div class="indoor-price">
-                            <span class="indoor-amount">Ksh 300</span>
-                            <span class="indoor-unit">per photo</span>
-                        </div>
-                        <p>Studio-quality indoor shots with professional lighting setup</p>
-                    </div>
-                </div>
-
-                <div class="payment-cyber reveal">
-                    <div class="payment-header">
-                        <i class="fas fa-mobile-alt"></i>
-                        <h3>M-Pesa Payment</h3>
-                    </div>
-                    <div class="payment-details">
-                        <div class="pay-row">
-                            <span class="pay-label">Paybill Number</span>
-                            <span class="pay-value" data-copy="222111">222111 <i class="fas fa-copy"></i></span>
-                        </div>
-                        <div class="pay-row">
-                            <span class="pay-label">Account Number</span>
-                            <span class="pay-value" data-copy="2451128">2451128 <i class="fas fa-copy"></i></span>
-                        </div>
-                    </div>
-                    <div class="delivery-note">
-                        <i class="fas fa-shipping-fast"></i>
-                        <span>Delivery Countrywide</span>
-                    </div>
+            <div class="contact-map reveal">
+                <div class="map-frame">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d255281.19891805786!2d36.68258744140624!3d-1.302861094857461!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f1172d84d49a7%3A0xf7cf0254b297924c!2sNairobi%2C%20Kenya!5e0!3m2!1sen!2sus!4v1700000000000!5m2!1sen!2sus" allowfullscreen="" loading="lazy"></iframe>
+                    <div class="map-overlay"></div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Contact Section -->
-        <section class="contact-cyber" id="contact">
-            <div class="contact-bg">
-                <div class="contact-fog"></div>
+    <footer class="footer-cyber">
+        <div class="footer-content">
+            <div class="footer-logo-cyber">
+                <img src="images/logo.jpeg" alt="Cugnot">
+                <div><span class="footer-brand">CUGNOT</span><span class="footer-tag">PHOTOGRAPHY</span></div>
             </div>
-
-            <div class="section-header-cyber reveal">
-                <span class="cyber-tag">[ CONTACT ]</span>
-                <h2>Make the Connection</h2>
-                <p class="section-desc">The story begins with a single message.</p>
+            <div class="footer-social-cyber">
+                <a href="https://instagram.com/cugnot_photography" target="_blank" class="social-link"><i class="fab fa-instagram"></i><span class="social-glow"></span></a>
+                <a href="#" class="social-link"><i class="fab fa-facebook-f"></i><span class="social-glow"></span></a>
+                <a href="#" class="social-link"><i class="fab fa-twitter"></i><span class="social-glow"></span></a>
+                <a href="#" class="social-link"><i class="fab fa-whatsapp"></i><span class="social-glow"></span></a>
             </div>
+            <div class="footer-line"></div>
+            <p class="footer-copy">&copy; 2026 CUGNOT PHOTOGRAPHY. All rights reserved.<span class="footer-location">Nairobi, Kenya</span></p>
+        </div>
+    </footer>
+</div>
 
-            <div class="contact-grid-cyber">
-                <div class="contact-info-cyber reveal">
-                    <div class="contact-card">
-                        <div class="card-glow"></div>
-                        <div class="contact-item-cyber">
-                            <div class="contact-icon-cyber">
-                                <i class="fas fa-map-marker-alt"></i>
-                            </div>
-                            <div class="contact-text">
-                                <span class="contact-label">LOCATION</span>
-                                <span class="contact-value">Nairobi, Kenya</span>
-                            </div>
-                        </div>
-
-                        <div class="contact-item-cyber">
-                            <div class="contact-icon-cyber">
-                                <i class="fas fa-envelope"></i>
-                            </div>
-                            <div class="contact-text">
-                                <span class="contact-label">EMAIL</span>
-                                <span class="contact-value">cugnot.photography@gmail.com</span>
-                            </div>
-                        </div>
-
-                        <div class="contact-item-cyber">
-                            <div class="contact-icon-cyber">
-                                <i class="fab fa-instagram"></i>
-                            </div>
-                            <div class="contact-text">
-                                <span class="contact-label">INSTAGRAM</span>
-                                <span class="contact-value">@cugnot_photography</span>
-                            </div>
-                        </div>
-
-                        <div class="contact-item-cyber">
-                            <div class="contact-icon-cyber">
-                                <i class="fas fa-clock"></i>
-                            </div>
-                            <div class="contact-text">
-                                <span class="contact-label">HOURS</span>
-                                <span class="contact-value">Mon - Sun: 8AM - 8PM</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="contact-map reveal">
-                    <div class="map-frame">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d255281.19891805786!2d36.68258744140624!3d-1.302861094857461!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f1172d84d49a7%3A0xf7cf0254b297924c!2sNairobi%2C%20Kenya!5e0!3m2!1sen!2sus!4v1700000000000!5m2!1sen!2sus" allowfullscreen="" loading="lazy"></iframe>
-                        <div class="map-overlay"></div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Footer -->
-        <footer class="footer-cyber">
-            <div class="footer-content">
-                <div class="footer-logo-cyber">
-                    <img src="images/logo.jpeg" alt="Cugnot">
-                    <div>
-                        <span class="footer-brand">CUGNOT</span>
-                        <span class="footer-tag">PHOTOGRAPHY</span>
-                    </div>
-                </div>
-
-                <div class="footer-social-cyber">
-                    <a href="https://instagram.com/cugnot_photography" target="_blank" class="social-link">
-                        <i class="fab fa-instagram"></i>
-                        <span class="social-glow"></span>
-                    </a>
-                    <a href="#" class="social-link">
-                        <i class="fab fa-facebook-f"></i>
-                        <span class="social-glow"></span>
-                    </a>
-                    <a href="#" class="social-link">
-                        <i class="fab fa-twitter"></i>
-                        <span class="social-glow"></span>
-                    </a>
-                    <a href="#" class="social-link">
-                        <i class="fab fa-whatsapp"></i>
-                        <span class="social-glow"></span>
-                    </a>
-                </div>
-
-                <div class="footer-line"></div>
-
-                <p class="footer-copy">
-                    &copy; 2026 CUGNOT PHOTOGRAPHY. All rights reserved.
-                    <span class="footer-location">Nairobi, Kenya</span>
-                </p>
-            </div>
-        </footer>
-    </div>
-
-    <script src="js/main.js"></script>
+<script src="js/main.js"></script>
 </body>
 </html>
