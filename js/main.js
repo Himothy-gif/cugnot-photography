@@ -5,18 +5,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const narrationText = document.getElementById('narration-text');
     const mainWebsite = document.getElementById('main-website');
     let introSkipped = false;
-    let voiceStarted = false;
+    
 
-    const synth = window.speechSynthesis;
-    let voices = [];
+    // Audio intro setup
 
-    function loadVoices() {
-        voices = synth.getVoices();
-    }
-    if (synth.onvoiceschanged !== undefined) {
-        synth.onvoiceschanged = loadVoices;
-    }
-    loadVoices();
 
     const storyLines = [
         {text: "In the year the stars burned cold...", delay: 800, speed: 70},
@@ -50,23 +42,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     let currentLine = 0;
 
-    let introAudio = null;
-    let audioStarted = false;
 
-    function playIntroAudio() {
-        if (audioStarted) return;
-        audioStarted = true;
-        introAudio = new Audio('audio/intro.mp3');
-        introAudio.volume = 1;
-        introAudio.play().catch(function(e) { console.log('Audio play failed:', e); });
-    }
-
-    function stopIntroAudio() {
-        if (introAudio) {
-            introAudio.pause();
-            introAudio.currentTime = 0;
-        }
-    }
 
     function typeLine() {
         if (introSkipped) return;
@@ -115,17 +91,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
     setTimeout(function() {
         studioLogo.style.display = 'none';
-        voiceStarted = true;
+        
         typeLine();
     }, 3500);
 
-    window.startVoice = function() {
-        if (voiceStarted) return;
-        voiceStarted = true;
-        if (storyLines[currentLine] && storyLines[currentLine].text.length > 0) {
-            speakText(storyLines[currentLine].text);
-        }
-    };
+
 
     window.skipIntro = function() {
         introSkipped = true;
